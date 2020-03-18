@@ -3,7 +3,6 @@ import h5py
 import numpy as np
 import redis
 import cv2
-import large_image
 import mysql.connector
 
 from copy import copy
