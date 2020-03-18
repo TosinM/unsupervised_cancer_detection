@@ -22,7 +22,7 @@ class Heatmap():
 		self.uncertMedian = 0
 		self.classMin = 0
 		self.classMax = 0
-        self.samples = None
+	        self.samples = None
 
 	def setData(self, q):
 		self.uid = q["uid"]
@@ -39,7 +39,7 @@ class Heatmap():
 		self.uncertMedian = 0
 		self.classMin = 0
 		self.classMax = 0
-        self.samples = q["samples"]
+        	self.samples = q["samples"]
 		self.classifier = q["classifier"]
 
 	def setXandYmap(self):
