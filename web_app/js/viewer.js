@@ -24,7 +24,7 @@ var olDiv = null;
 var lastScaleFactor = 0;
 var pyramids, trainingSets;
 var clickCount = 0;
-var isDragged = false;
+var isSample = false;
 
 // The following only needed for active sessions
 var uid = null, negClass = "", posClass = "";
@@ -165,6 +165,7 @@ $(function() {
 				$("#finishBtn").hide();
 				$("#retrainBtn").hide();
 				$('#legend').hide();
+				$('#btn_1').hide();
 				// document.getElementById("index").setAttribute("href","index.html");
 
 			} else {
@@ -175,6 +176,8 @@ $(function() {
 				$("#btn_save").show();
 				$("#finishBtn").show();
 				$("#retrainBtn").show();
+				$('#btn_1').show();
+				$('#btn_1').attr('disabled', 'disabled')
 				// $('#nav_validation').hide();
 				getClusters();
 
@@ -290,6 +293,20 @@ function thumbDoubleClick(box) {
 	}
 
 	updateCheckStatus(index);
+
+	for( sample in fixes['centroids'] ) {
+		if (fixes['centroids'][sample]['checked'] > 0) {
+				isSample = true;
+		}
+	}
+
+	if (isSample){
+		$('#btn_1').removeAttr('disabled');
+	}
+	else{
+		$('#btn_1').attr('disabled', 'disabled')
+	}
+
 };
 
 
@@ -867,7 +884,7 @@ function gotoView() {
 		viewJSON['uid'] = uid;
 		viewJSON['target'] = 'view';
 		viewJSON['dataset'] = datapath;
-		viewJSON['centroids'] = 'None';
+		viewJSON['centroids'] = fixes['centroids'];
 		viewJSON['classifier'] = classifier;
 		viewJSON['width'] = curWidth;
 		viewJSON['height'] = curHeight;
@@ -908,7 +925,7 @@ function gotoHeatmap() {
 	viewJSON['uid'] = uid;
 	viewJSON['target'] = 'heatmap';
 	viewJSON['dataset'] = datapath;
-	viewJSON['centroids'] = 'None';
+	viewJSON['centroids'] = fixes['centroids'];
 	viewJSON['slide'] = curSlide;
 	viewJSON['width'] = curWidth;
 	viewJSON['height'] = curHeight;
@@ -1128,7 +1145,7 @@ function retrain() {
 			contentType: 'application/json;charset=UTF-8',
 			success: function(data) {
 
-				fixes['centroids'] = [];
+				// fixes['centroids'] = [];
 				statusObj.samplesToFix(0);
 				viewresultJson = JSON.parse(data);
 
@@ -1153,9 +1170,9 @@ function retrain() {
 				viewJSON = {};
 				viewJSON['id'] = uid;
 				viewJSON['uid'] = uid;
-				viewJSON['target'] = 'retrainHeatmap';
+				viewJSON['target'] = 'heatmap';
 				viewJSON['classifier'] = classifier;
-				viewJSON['samples'] = fixes['centroids'];
+				viewJSON['centroids'] = fixes['centroids'];
 				viewJSON['dataset'] = datapath;
 				viewJSON['slide'] = curSlide;
 				viewJSON['iteration'] = iteration;
@@ -1193,27 +1210,14 @@ function retrain() {
 						ele.setAttributeNS(null, 'opacity', 0.25);
 						ele.setAttribute('id', 'heatmapImg');
 
-						uncertMin = heatmapresultJson.uncertMin;
-						uncertMax = heatmapresultJson.uncertMax;
 						classMin = heatmapresultJson.classMin;
 						classMax = heatmapresultJson.classMax;
 
-						if( $('#heatmapUncertain').is(':checked') ) {
-							// heatmap should be reloaded with different time after updating heatmap image on local directory
-							ele.setAttributeNS(xlinkns, "href", "heatmaps/"+uid+"/"+heatmapresultJson.uncertFilename+"?v="+(new Date()).getTime());
-							// document.getElementById('heatMin').innerHTML = XandYLabelsJson.uncertMin.toFixed(2);
-							// document.getElementById('heatMax').innerHTML = XandYLabelsJson.uncertMax.toFixed(2);
-						} else {
-							ele.setAttributeNS(xlinkns, "href", "heatmaps/"+uid+"/"+heatmapresultJson.classFilename+"?v="+(new Date()).getTime());
-							// document.getElementById('heatMin').innerHTML = XandYLabelsJson.classMin.toFixed(2);
-							// document.getElementById('heatMax').innerHTML = XandYLabelsJson.classMax.toFixed(2);
-						}
+						ele.setAttributeNS(xlinkns, "href", "heatmaps/"+uid+"/"+heatmapresultJson.classFilename+"?v="+(new Date()).getTime());
 						segGrp.appendChild(ele);
 
 						heatmapLoaded = true;
-						// console.log("Uncertainty min: "+uncertMin+", max: "+uncertMax+", median: "+XandYLabelsJson.uncertMedian);
 
-						fixes['centroids'] = [];
 						statusObj.samplesToFix(0);
 
 						setTimeout(function() {

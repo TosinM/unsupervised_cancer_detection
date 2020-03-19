@@ -27,15 +27,8 @@
 
 	// Get labels for the objects within the viewport
 	if( $trainSet != "none" ) {
-
-		if( $trainSet === "PICKER" ) {
-			$colors = array('aqua', 'yellow');
-		} else {
-			$colors = array('lightgrey', 'lime');
-		}
-
+		$colors = array('lightgrey', 'lime');
 		$dataSet = $_POST['dataset'];
-
 	}
 
 	$boundaryTablename = "sregionboundaries";
@@ -43,8 +36,6 @@
 	$dbConn = guestConnect();
 	//$sql = 'SELECT boundary, id, centroid_x, centroid_y from "'.$boundaryTablename.'" where slide="'.$slide.'" AND centroid_x BETWEEN '.$left.' AND '.$right.' AND centroid_y BETWEEN '.$top.' AND '.$bottom;
 	$sql = 'SELECT boundary, id, centroid_x, centroid_y from '.$boundaryTablename.' where slide="'.$slide.'" AND centroid_x BETWEEN '.$left.' AND '.$right.' AND centroid_y BETWEEN '.$top.' AND '.$bottom;
-
-	//write_log("INFO", "sql: ".$sql);
 
 	if( $result = mysqli_query($dbConn, $sql) ) {
 

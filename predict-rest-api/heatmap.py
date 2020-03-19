@@ -22,7 +22,7 @@ class Heatmap():
 		self.uncertMedian = 0
 		self.classMin = 0
 		self.classMax = 0
-	        self.samples = None
+	        self.centroids = None
 
 	def setData(self, q):
 		self.uid = q["uid"]
@@ -39,25 +39,22 @@ class Heatmap():
 		self.uncertMedian = 0
 		self.classMin = 0
 		self.classMax = 0
-        	self.samples = q["samples"]
-		self.classifier = q["classifier"]
+        	self.centroids = q["centroids"]
 
 	def setXandYmap(self):
 		self.fX = self.width / self.grid_size + 1
 		self.fY = self.height / self.grid_size + 1
 
 	def setHeatMap(self, x_set, y_set, scores):
-		grayUncertain, grayClass, self.uncertMin, self.uncertMax, self.uncertMedian, self.classMin, self.classMax = get(
+		grayClass, self.classMin, self.classMax = get(
 			self.fY, self.fX, np.ascontiguousarray(y_set, dtype=np.double), np.ascontiguousarray(x_set, dtype=np.double), np.ascontiguousarray(scores, dtype=np.double)
 		)
-		im_uncertain = cv2.applyColorMap(grayUncertain.astype(np.uint8), cv2.COLORMAP_JET)
 		im_class = cv2.applyColorMap(grayClass.astype(np.uint8), cv2.COLORMAP_JET)
 
 		if not os.path.exists(self.path):
 			os.makedirs(self.path)
 			subprocess.call(['chmod', '-R', '777', self.path])
 
-		cv2.imwrite(self.uncertain_path, im_uncertain, [cv2.IMWRITE_JPEG_QUALITY, 75])
 		cv2.imwrite(self.class_path, im_class, [cv2.IMWRITE_JPEG_QUALITY, 75])
 
 	def getData(self, index):

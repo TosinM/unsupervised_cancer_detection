@@ -79,7 +79,7 @@ def run():
                 x_centroid_set = dset.getXcentroidSet(data_idx, object_num)
                 y_centroid_set = dset.getYcentroidSet(data_idx, object_num)
 
-                print ("Determine labels ... ")
+                print ("view ... ")
                 selected_cluster_number = []
                 for sample in viewer.centroids:
                     if sample['checked'] > 0:
@@ -109,9 +109,9 @@ def run():
                 x_centroid_set = dset.getXcentroidSet(data_idx, object_num)
                 y_centroid_set = dset.getYcentroidSet(data_idx, object_num)
 
-                print ("Determine heatmap ... ")
+                print ("heatmap ... ")
                 selected_cluster_number = []
-                for sample in viewer.centroids:
+                for sample in heat.centroids:
                     if sample['checked'] > 0:
                         selected_cluster_number.append(sample['cluster'])
 
