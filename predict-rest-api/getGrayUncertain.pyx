@@ -40,9 +40,10 @@ def get(long fX, long fY, double[:, :] centX, double[:, :] centY, double[:] slid
 
     classMax = classMap[0, 0]
 
-    with nogil:
-        for row in range(fX):
-            for col in range(fY):
-                grayClass[row, col] = int(min(255.0 * classMap[row, col] / classMax, 255.0))
+    if classMax > 0:
+      with nogil:
+          for row in range(fX):
+              for col in range(fY):
+                  grayClass[row, col] = int(min(255.0 * classMap[row, col] / classMax, 255.0))
 
     return np.asarray(grayClass), classMin, classMax
