@@ -30,7 +30,7 @@ class Heatmap():
 		self.width = int(q["width"])
 		self.height = int(q["height"])
 		self.grid_size = 80
-		self.dir = '/var/www/html/HistomicsML/heatmaps/'
+		self.dir = '/var/www/html/UnsupervisedCD/heatmaps/'
 		self.path = self.dir + self.uid
 		self.uncertain_path = self.path + '/' + self.slide + '.jpg'
 		self.class_path = self.path + '/' + self.slide + '_class.jpg'
