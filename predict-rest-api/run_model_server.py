@@ -56,8 +56,6 @@ def run():
 
         if q_uid is not None:
 
-            print (" Session Start .....")
-
             no_uid = True
             uidx = 0
 
@@ -79,7 +77,6 @@ def run():
                 x_centroid_set = dset.getXcentroidSet(data_idx, object_num)
                 y_centroid_set = dset.getYcentroidSet(data_idx, object_num)
 
-                print ("view ... ")
                 selected_cluster_number = []
                 for sample in viewer.centroids:
                     if sample['checked'] > 0:
@@ -109,7 +106,6 @@ def run():
                 x_centroid_set = dset.getXcentroidSet(data_idx, object_num)
                 y_centroid_set = dset.getYcentroidSet(data_idx, object_num)
 
-                print ("heatmap ... ")
                 selected_cluster_number = []
                 for sample in heat.centroids:
                     if sample['checked'] > 0:
