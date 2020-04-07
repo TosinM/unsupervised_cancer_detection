@@ -56,4 +56,4 @@ If the server has a static IP address available you can run this command to set 
 Accessing Unsupervised Cancer Detection Tool from your browser
 --------------------------------------------------------------
 
-Navigate your browser to the UCDT page `insert link later.`
+Navigate your browser to the UCDT page localhost/UnsupervisedCD/
