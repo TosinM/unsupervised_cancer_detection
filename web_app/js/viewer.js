@@ -15,7 +15,7 @@ var curBox = -1;
 var curX = 0, curY = 0;
 var boundaryOn = true;
 
-var	boxes = ["box_1", "box_2", "box_3", "box_4", "box_5", "box_6","box_7", "box_8", "box_9", "box_10", "box_11", "box_12"];
+var	boxes = ["box_1", "box_2", "box_3", "box_4", "box_5", "box_6","box_7", "box_8", "box_9", "box_10", "box_11", "box_12", "box_13", "box_14", "box_15", "box_16", "box_17", "box_18"];
 
 var viewer = null;
 var imgHelper = null, osdCanvas = null, viewerHook = null;
