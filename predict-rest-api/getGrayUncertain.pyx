@@ -11,7 +11,7 @@ def sort_cpp(double[::1] a):
 
 def get(long fX, long fY, double[:, :] centX, double[:, :] centY, double[:] slideScores not None):
 
-    cdef long nrows = slideScores.shape[0]
+    cdef long nrows = len(slideScores)
     cdef double[:, :] classMap = np.zeros((fX, fY), dtype=np.double)
     cdef double[:, :] densityMap = np.zeros((fX, fY), dtype=np.double)
     cdef long[:, :] grayClass = np.zeros((fX, fY), dtype=np.int)
@@ -38,7 +38,7 @@ def get(long fX, long fY, double[:, :] centX, double[:, :] centY, double[:] slid
 
     classMap = filters.gaussian(classMap, 1)
 
-    classMax = classMap[0, 0]
+    classMax = 1.0
 
     if classMax > 0:
       with nogil:
