@@ -1165,7 +1165,7 @@ function retrain() {
 
 	else {
 
-			if( curSlide != "" && classifier != 'none' && heatmapLoaded == false ) {
+			if( curSlide != "" && classifier != 'none') {
 
 				viewJSON = {};
 				viewJSON['id'] = uid;
